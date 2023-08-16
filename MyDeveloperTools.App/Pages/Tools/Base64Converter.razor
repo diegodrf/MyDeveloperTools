@@ -1,0 +1,77 @@
+﻿@page "/tools/base64-converter"
+@using System.Text;
+@using MyDeveloperTools.App.Shared.Components;
+@inject IDialogService _dialogService
+
+<h3>Base64Converter</h3>
+
+<MudRadioGroup @bind-SelectedOption="@ConverterSelected">
+    <MudRadio Option="@ConverterType.TextToBase64" Color="Color.Primary">Text To Base64</MudRadio>
+    <MudRadio Option="@ConverterType.Base64ToText" Color="Color.Secondary">Base64 To Text</MudRadio>
+</MudRadioGroup>
+
+<MudTextField 
+    @bind-Value="TextValue" 
+    Label="Content" 
+    Variant="Variant.Outlined" 
+    Clearable="true" 
+    Lines="5" />
+
+<MudTextField 
+    @bind-Value="ConvertedText" 
+    Adornment="Adornment.End" 
+    AdornmentIcon="@Icons.Material.Filled.ContentCopy" 
+    Label="Result" 
+    ReadOnly="true" 
+    Variant="Variant.Outlined" 
+    Lines="5" />
+@Icons.Material.Filled.ContentCopy
+<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ExecuteConverter">Convert</MudButton>
+
+@code {
+    public string TextValue { get; set; } = string.Empty;
+    public string ConvertedText { get; set; } = string.Empty;
+    public ConverterType ConverterSelected { get; set; } = ConverterType.TextToBase64;
+
+    public void TextToBase64()
+    {
+        var textAsBytes = Encoding.UTF8.GetBytes(TextValue);
+        ConvertedText = Convert.ToBase64String(textAsBytes);
+    }
+
+    public void Base64ToText()
+    {
+        try
+        {
+            var base64AsBytes = Convert.FromBase64String(TextValue);
+            ConvertedText = Encoding.UTF8.GetString(base64AsBytes);
+        }
+        catch (FormatException)
+        {
+            var parameters = new DialogParameters<ErrorDialog>();
+            parameters.Add(x => x.TextContent, "The inputted text is not a valid base64 text.");
+            _dialogService.Show<ErrorDialog>("Invalid Text", parameters);
+        }
+
+        
+    }
+
+    public void ExecuteConverter()
+    {
+        if(ConverterSelected == ConverterType.TextToBase64)
+        {
+            TextToBase64();
+        }
+        else
+        {
+            Base64ToText();
+        }
+    }
+}
+
+@code {
+    public enum ConverterType
+    {
+        TextToBase64, Base64ToText
+    }
+}
