@@ -5,26 +5,35 @@
 
 <h3>Base64Converter</h3>
 
-<MudRadioGroup @bind-SelectedOption="@ConverterSelected">
-    <MudRadio Option="@ConverterType.TextToBase64" Color="Color.Primary">Text To Base64</MudRadio>
-    <MudRadio Option="@ConverterType.Base64ToText" Color="Color.Secondary">Base64 To Text</MudRadio>
-</MudRadioGroup>
+<MudGrid>
+    <MudItem>
+        <MudRadioGroup @bind-SelectedOption="@ConverterSelected">
+            <MudRadio Option="@ConverterType.TextToBase64" Color="Color.Primary">Text To Base64</MudRadio>
+            <MudRadio Option="@ConverterType.Base64ToText" Color="Color.Secondary">Base64 To Text</MudRadio>
+        </MudRadioGroup>
+    </MudItem>
+    <MudItem>
+        <MudTextField @bind-Value="TextValue"
+                      Label="Content"
+                      Variant="Variant.Outlined"
+                      Clearable="true"
+                      Lines="5" />
+    </MudItem>
+    <MudItem>
+        <MudTextField @bind-Value="ConvertedText"
+                      Adornment="Adornment.End"
+                      AdornmentIcon="@Icons.Material.Filled.ContentCopy"
+                      Label="Result"
+                      ReadOnly="true"
+                      Variant="Variant.Outlined"
+                      Lines="5" />
+    </MudItem>
+</MudGrid>
 
-<MudTextField 
-    @bind-Value="TextValue" 
-    Label="Content" 
-    Variant="Variant.Outlined" 
-    Clearable="true" 
-    Lines="5" />
 
-<MudTextField 
-    @bind-Value="ConvertedText" 
-    Adornment="Adornment.End" 
-    AdornmentIcon="@Icons.Material.Filled.ContentCopy" 
-    Label="Result" 
-    ReadOnly="true" 
-    Variant="Variant.Outlined" 
-    Lines="5" />
+
+
+
 @Icons.Material.Filled.ContentCopy
 <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ExecuteConverter">Convert</MudButton>
 
