@@ -22,4 +22,8 @@
     <Folder Include="wwwroot\css\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MyDeveloperTools.Core\MyDeveloperTools.Core.csproj" />
+  </ItemGroup>
+
 </Project>

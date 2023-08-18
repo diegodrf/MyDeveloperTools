@@ -1,59 +1,74 @@
 ﻿@page "/tools/base64-converter"
 @using System.Text;
 @using MyDeveloperTools.App.Shared.Components;
+@using MyDeveloperTools.Core.Enums;
+@inject IBase64Converter _service
+@inject IClipboardService _clipBoardService
 @inject IDialogService _dialogService
-
-<h3>Base64Converter</h3>
+@inject ISnackbar _snackbar
 
 <MudGrid>
-    <MudItem>
-        <MudRadioGroup @bind-SelectedOption="@ConverterSelected">
-            <MudRadio Option="@ConverterType.TextToBase64" Color="Color.Primary">Text To Base64</MudRadio>
-            <MudRadio Option="@ConverterType.Base64ToText" Color="Color.Secondary">Base64 To Text</MudRadio>
+    <MudItem xs="12" Class="d-flex align-center justify-center">
+        <MudText Typo="Typo.h3">@_title</MudText>
+    </MudItem>
+    <MudItem xs="12" Class="d-flex align-center justify-center">
+        <MudRadioGroup @bind-SelectedOption="@ConvertedSelected">
+            <MudRadio Option="@Base64ConverterType.TextToBase64" Color="Color.Primary">Text To Base64</MudRadio>
+            <MudRadio Option="@Base64ConverterType.Base64ToText" Color="Color.Secondary">Base64 To Text</MudRadio>
         </MudRadioGroup>
     </MudItem>
-    <MudItem>
-        <MudTextField @bind-Value="TextValue"
+    <MudItem xs="12" Class="d-flex align-center justify-center">
+        <MudTextField @bind-Value="_textValue"
                       Label="Content"
                       Variant="Variant.Outlined"
                       Clearable="true"
                       Lines="5" />
     </MudItem>
-    <MudItem>
-        <MudTextField @bind-Value="ConvertedText"
+    <MudItem xs="12" Class="d-flex align-center justify-center">
+        <MudTextField @bind-Value="_convertedText"
                       Adornment="Adornment.End"
-                      AdornmentIcon="@Icons.Material.Filled.ContentCopy"
+                      AdornmentIcon="@(string.IsNullOrEmpty(_convertedText) ? string.Empty : @Icons.Material.Filled.ContentCopy)"
+                      OnAdornmentClick="@(async() =>await CopyToClipboardAsync(_convertedText))"
                       Label="Result"
                       ReadOnly="true"
                       Variant="Variant.Outlined"
                       Lines="5" />
     </MudItem>
+    <MudItem xs="12" Class="d-flex align-center justify-end">
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ExecuteConverter">Convert</MudButton>
+    </MudItem>
 </MudGrid>
 
 
-
-
-
-@Icons.Material.Filled.ContentCopy
-<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ExecuteConverter">Convert</MudButton>
-
 @code {
-    public string TextValue { get; set; } = string.Empty;
-    public string ConvertedText { get; set; } = string.Empty;
-    public ConverterType ConverterSelected { get; set; } = ConverterType.TextToBase64;
+    private string _title = "Base64Converter";
+    private string _textValue = string.Empty;
+    private string _convertedText = string.Empty;
 
-    public void TextToBase64()
+    private Base64ConverterType _converterSelected = Base64ConverterType.TextToBase64;
+    public Base64ConverterType ConvertedSelected
     {
-        var textAsBytes = Encoding.UTF8.GetBytes(TextValue);
-        ConvertedText = Convert.ToBase64String(textAsBytes);
+        get
+        {
+            return _converterSelected;
+        }
+        set
+        {
+            CleanText();
+            _converterSelected = value;
+        }
     }
 
-    public void Base64ToText()
+    private void TextToBase64()
+    {
+        _convertedText = _service.TextToBase64(_textValue);
+    }
+
+    private void Base64ToText()
     {
         try
         {
-            var base64AsBytes = Convert.FromBase64String(TextValue);
-            ConvertedText = Encoding.UTF8.GetString(base64AsBytes);
+            _convertedText = _service.Base64ToText(_textValue);
         }
         catch (FormatException)
         {
@@ -61,13 +76,11 @@
             parameters.Add(x => x.TextContent, "The inputted text is not a valid base64 text.");
             _dialogService.Show<ErrorDialog>("Invalid Text", parameters);
         }
-
-        
     }
 
-    public void ExecuteConverter()
+    private void ExecuteConverter()
     {
-        if(ConverterSelected == ConverterType.TextToBase64)
+        if (ConvertedSelected == Base64ConverterType.TextToBase64)
         {
             TextToBase64();
         }
@@ -76,11 +89,16 @@
             Base64ToText();
         }
     }
-}
 
-@code {
-    public enum ConverterType
+    private void CleanText()
     {
-        TextToBase64, Base64ToText
+        _textValue = string.Empty;
+        _convertedText = string.Empty;
+    }
+
+    private async Task CopyToClipboardAsync(string text)
+    {
+        await _clipBoardService.CopyToClipboardAsync(text);
+        _snackbar.Add("Copied to Clipboard.", Severity.Success);
     }
 }

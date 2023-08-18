@@ -4,10 +4,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>MyDeveloperTools.App</title>
+    <title>My Developer Tools App</title>
     <base href="/" />
+    
+    <!-- Google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    
+    <!-- MudBlazor -->
     <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+    
     <link rel="icon" type="image/png" href="favicon.png" />
     <link href="MyDeveloperTools.App.styles.css" rel="stylesheet" />
     <link href="manifest.json" rel="manifest" />
@@ -17,7 +22,46 @@
 
 <body>
     <div id="app">
-        Loading...
+
+        <!-- Custom Spinner -->
+        <style>
+            .lds-dual-ring {
+                display: inline-block;
+                width: 80px;
+                height: 80px;
+            }
+            .lds-dual-ring:after {
+                content: " ";
+                display: block;
+                width: 64px;
+                height: 64px;
+                margin: 8px;
+                border-radius: 50%;
+                border: 6px solid #594ae2ff;
+                border-color: #594ae2ff transparent #594ae2ff transparent;
+                animation: lds-dual-ring 1.2s linear infinite;
+            }
+            @keyframes lds-dual-ring {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+            .center-screen {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                min-height: 100vh;
+            }
+        </style>
+        <div class="center-screen">
+            <div class="lds-dual-ring"></div>
+        </div>
+        <!-- Custom Spinner -->
+
     </div>
 
     <div id="blazor-error-ui">
