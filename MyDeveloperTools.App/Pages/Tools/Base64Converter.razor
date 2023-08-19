@@ -9,9 +9,9 @@
 
 <PageTitle>@_title</PageTitle>
 
-<MudGrid>
-    <MudItem xs="12" Class="d-flex align-center justify-center">
-        <MudText Typo="Typo.h3">@_title</MudText>
+<MudGrid class="px-4">
+    <MudItem xs="12" Class="d-flex align-center justify-center px-4">
+        <MudText Typo="Typo.h4">@_title</MudText>
     </MudItem>
     <MudItem xs="12" Class="d-flex align-center justify-center">
         <MudRadioGroup @bind-SelectedOption="@ConvertedSelected">
@@ -36,7 +36,7 @@
                       Variant="Variant.Outlined"
                       Lines="5" />
     </MudItem>
-    <MudItem xs="12" Class="d-flex align-center justify-end">
+    <MudItem xs="12" Class="d-flex align-center justify-center">
         <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ExecuteConverter">Convert</MudButton>
     </MudItem>
 </MudGrid>
