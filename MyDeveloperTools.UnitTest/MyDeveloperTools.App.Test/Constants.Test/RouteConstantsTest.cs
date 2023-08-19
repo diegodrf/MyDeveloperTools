@@ -25,5 +25,14 @@ namespace MyDeveloperTools.UnitTest.MyDeveloperTools.App.Test.Constants.Test
 
             Assert.Equal(absolutePath[1..], relativePath);
         }
+
+        [Fact]
+        public void WhenCallMethodToGetPathTitle_ShouldReturnPathAsCaptalizedName()
+        {
+            var absolutePath = RouteConstant.GetAllRoutes().First(x => x.Equals("/tools/base64-converter"));
+            var title = absolutePath.GetPathTitle();
+
+            Assert.Equal("Base64 Converter", title);
+        }
     }
 }
