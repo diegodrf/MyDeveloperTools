@@ -1,1 +1,6 @@
-﻿<MudNavLink Href="tools/base64-converter" Match="NavLinkMatch.All">Base64 Converter</MudNavLink>
+﻿@using MyDeveloperTools.App.Constants;
+
+@foreach(var route in RouteConstant.GetAllRoutes().Order())
+{
+    <MudNavLink Href="@route.GetRelativePath()" Match="NavLinkMatch.All">@route.GetPathTitle()</MudNavLink>
+}
