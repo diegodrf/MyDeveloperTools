@@ -5,13 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
-    
-    <!--Configuration to solver Github Cache problem-->
-    <!--https://learn.microsoft.com/en-us/aspnet/core/blazor/host-and-deploy/webassembly?view=aspnetcore-7.0&preserve-view=true-->
     <RunAOTCompilation>true</RunAOTCompilation>
-    <BlazorEnableCompression>false</BlazorEnableCompression>
-    <!--End-->
-    
   </PropertyGroup>
 
   <ItemGroup>
