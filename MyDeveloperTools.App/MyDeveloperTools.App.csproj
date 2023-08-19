@@ -8,7 +8,7 @@
     
     <!--Configuration to solver Github Cache problem-->
     <!--https://learn.microsoft.com/en-us/aspnet/core/blazor/host-and-deploy/webassembly?view=aspnetcore-7.0&preserve-view=true-->
-    <RunAOTCompilation>false</RunAOTCompilation>
+    <RunAOTCompilation>true</RunAOTCompilation>
     <BlazorEnableCompression>false</BlazorEnableCompression>
     <!--End-->
     
