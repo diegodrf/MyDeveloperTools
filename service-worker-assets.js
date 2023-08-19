@@ -57,7 +57,7 @@
       "url": "_framework\/icudt.dat.br"
     },
     {
-      "hash": "sha256-\/yUmOJRDYZ88Cr3rlOe8IdjTz7ZWjZT3ed98Mvd\/00Q=",
+      "hash": "sha256-61BStVO48WgpfMGT9sQImMtQl7lvQHjvZGV84+Vlldk=",
       "url": "_framework\/blazor.boot.json.br"
     },
     {
@@ -133,11 +133,11 @@
       "url": "_framework\/MudBlazor.dll.br"
     },
     {
-      "hash": "sha256-NZYawSBvX5Fw1\/ZiT7njZzPIq8lPAsnpndNza0rPN40=",
+      "hash": "sha256-CnS6tVScNel8aGM2BeYn7VQYp5MhvowOqp4fwyJ\/NQI=",
       "url": "_framework\/MyDeveloperTools.App.dll.br"
     },
     {
-      "hash": "sha256-8i1Z8TXq24T54UyRSIYqCQ\/sVS2lJimHSDXbIwwk3tQ=",
+      "hash": "sha256-FUNIpwrtNTcMdoLbL9mFvDdxAcQan80rAVZjS49d0wg=",
       "url": "_framework\/MyDeveloperTools.Core.dll.br"
     },
     {
@@ -229,7 +229,7 @@
       "url": "_framework\/dotnet.7.0.10.05ex7uz620.js"
     },
     {
-      "hash": "sha256-cOxna7C6Bdfj\/UMqbTOaP3eJDiax6RJylxe5MF+Uhqs=",
+      "hash": "sha256-GHNoecn3bHFRIK0rjE2AvM9JIAQbx5AxaCP98AWSJRw=",
       "url": "_framework\/dotnet.wasm.br"
     },
     {
@@ -253,5 +253,5 @@
       "url": "brotliloader.min.js"
     }
   ],
-  "version": "Nf\/+Pi8N"
+  "version": "I3JXyuVi"
 };
