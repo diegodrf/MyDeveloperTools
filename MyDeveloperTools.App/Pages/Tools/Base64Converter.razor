@@ -1,5 +1,6 @@
-﻿@page "/tools/base64-converter"
+﻿@attribute [Route(RouteConstant.Base64Converter)]
 @using System.Text;
+@using MyDeveloperTools.App.Constants;
 @using MyDeveloperTools.App.Shared.Components;
 @using MyDeveloperTools.Core.Enums;
 @inject IBase64Converter _service
