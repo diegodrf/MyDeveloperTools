@@ -1,7 +1,43 @@
 ﻿@attribute [Route(RouteConstant.GuidGenerator)]
+@inject IClipboardService _clipboardService
+@inject ISnackbar _snackbar
 
-<MudText Class="justify-center align-center">In development...</MudText>
+<MudGrid class="px-4 d-flex align-center justify-center">
+    <MudItem xs="12" Class="d-flex align-center justify-center px-4">
+        <MudText Typo="Typo.h4">@_title</MudText>
+    </MudItem>
+    <MudItem xs="6" Class="d-flex align-center justify-center mx-14">
+        <MudTextField @bind-Value="_textValue"
+                      Label="Content"
+                      Variant="Variant.Outlined"
+                      ReadOnly="true"
+                      Adornment="Adornment.End"
+                      AdornmentIcon="@(@Icons.Material.Filled.ContentCopy)"
+                      OnAdornmentClick="@(async () => await CopyToClipboardAsync())"
+                      Lines="1" />
+    </MudItem>
+    <MudItem xs="12" Class="d-flex align-center justify-center">
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Generate">New GUID</MudButton>
+    </MudItem>
+</MudGrid>
 
 @code {
+    private string _title = RouteConstant.GuidGenerator.GetPathTitle();
+    private string _textValue = string.Empty;
 
+    protected override void OnInitialized()
+    {
+        Generate();
+    }
+
+    private void Generate()
+    {
+        _textValue = Guid.NewGuid().ToString();
+    }
+
+    private async Task CopyToClipboardAsync()
+    {
+        await _clipboardService.CopyToClipboardAsync(_textValue);
+        _snackbar.Add("Copied to Clipboard.", Severity.Success);
+    }
 }
