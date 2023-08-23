@@ -1,9 +1,23 @@
 ﻿@page "/"
 @inject NavigationManager _navigationManager
 
-@code {
-    protected override void OnInitialized()
+
+<MudGrid>
+    @foreach (var route in RouteConstant.GetAllRoutes())
     {
-        _navigationManager.NavigateTo("tools/base64-converter");
+        <MudItem xs=5>
+            <MudCard>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@(route.GetPathTitle())</MudText>
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="() => _navigationManager.NavigateTo(route)">Go To</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
     }
+</MudGrid>
+
+@code {
+
 }
