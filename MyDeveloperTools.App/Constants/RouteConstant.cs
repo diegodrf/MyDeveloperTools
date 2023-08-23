@@ -6,6 +6,7 @@ namespace MyDeveloperTools.App.Constants
     {
         public const string Base64Converter = "/tools/base64-converter";
         public const string GuidGenerator = "/tools/guid-generator";
+        public const string TemperatureConverter = "/tools/temperature-converter";
 
         public static string GetRelativePath(this string path) => path.TrimStart('/');
         public static string GetPathTitle(this string path)
