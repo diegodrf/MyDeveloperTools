@@ -22,6 +22,7 @@ builder.Services.AddMudServices(config =>
 });
 
 builder.Services.AddScoped<IBase64Converter, ToolService>();
+builder.Services.AddScoped<ITemperatureConverter, ToolService>();
 builder.Services.AddScoped<IClipboardService, ClipboardService>();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
