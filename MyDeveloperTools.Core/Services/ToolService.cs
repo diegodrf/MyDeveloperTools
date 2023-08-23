@@ -3,7 +3,7 @@ using System.Text;
 
 namespace MyDeveloperTools.Core.Services
 {
-    public class ToolService : IBase64Converter
+    public class ToolService : IBase64Converter, ITemperatureConverter
     {
         public string Base64ToText(string base64Text)
         {
@@ -16,5 +16,18 @@ namespace MyDeveloperTools.Core.Services
             var textAsBytes = Encoding.UTF8.GetBytes(text);
             return Convert.ToBase64String(textAsBytes);
         }
+
+        public double CelsiusToFahrenheit(double temperature)
+        {
+            return (temperature * 9 / 5) + 32;
+
+        }
+
+        public double FahrenheitToCelsius(double temperature)
+        {
+            return Math.Round((temperature - 32) * 5 / 9, 5);
+        }
+
+
     }
 }
