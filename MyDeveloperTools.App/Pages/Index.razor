@@ -5,16 +5,14 @@
 <MudGrid>
     @foreach (var route in RouteConstant.GetAllRoutes())
     {
-        <MudItem xs=5>
-            <MudCard>
-                <MudCardContent>
-                    <MudText Typo="Typo.h6">@(route.GetPathTitle())</MudText>
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="() => _navigationManager.NavigateTo(route)">Go To</MudButton>
-                    </MudCardActions>
-                </MudCard>
-            </MudItem>
+        <MudItem xs=6>
+            <MudButton 
+                Variant="Variant.Filled"
+                OnClick="() => _navigationManager.NavigateTo(route)"
+                Color="Color.Primary">
+                <MudText Typo="Typo.h6">@(route.GetPathTitle())</MudText>
+            </MudButton>
+        </MudItem>
     }
 </MudGrid>
 
