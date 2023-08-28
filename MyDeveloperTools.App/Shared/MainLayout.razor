@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager _navigationManager
 
 <PageTitle>@_title</PageTitle>
 
@@ -10,7 +11,9 @@
     
     <MudAppBar Elevation="1">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        <MudText Typo="Typo.h5" Class="ml-3">@_title</MudText>
+        <MudButton Variant="Variant.Text" OnClick="@(() => _navigationManager.NavigateTo("/"))" Class="ml-3" Color="Color.Transparent">
+            <MudText Typo="Typo.h5" Style="@($"color: {Colors.Grey.Lighten5}")">@_title</MudText>
+            </MudButton>
     </MudAppBar>
     
     <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
