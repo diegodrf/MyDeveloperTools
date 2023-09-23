@@ -1,0 +1,103 @@
+﻿@attribute [Route(RouteConstant.Base64Converter)]
+@inject IBase64Converter _service
+@inject IClipboardService _clipBoardService
+@inject IDialogService _dialogService
+@inject ISnackbar _snackbar
+
+<PageTitle>@_title</PageTitle>
+
+<MudGrid class="px-4">
+    <MudItem xs="12" Class="d-flex align-center justify-center px-4">
+        <MudText Typo="Typo.h4">@_title</MudText>
+    </MudItem>
+    <MudItem xs="12" Class="d-flex align-center justify-center">
+        <MudRadioGroup @bind-SelectedOption="@ConvertedSelected">
+            <MudRadio Option="@Base64ConverterType.TextToBase64" Color="Color.Primary">Text To Base64</MudRadio>
+            <MudRadio Option="@Base64ConverterType.Base64ToText" Color="Color.Primary">Base64 To Text</MudRadio>
+        </MudRadioGroup>
+    </MudItem>
+    <MudItem xs="12" Class="d-flex align-center justify-center">
+        <MudTextField @bind-Value="_textValue"
+                      Label="Content"
+                      Variant="Variant.Outlined"
+                      Clearable="true"
+                      Lines="5" />
+    </MudItem>
+    <MudItem xs="12" Class="d-flex align-center justify-center">
+        <MudTextField @bind-Value="_convertedText"
+                      Adornment="Adornment.End"
+                      AdornmentIcon="@(string.IsNullOrEmpty(_convertedText) ? string.Empty : @Icons.Material.Filled.ContentCopy)"
+                      OnAdornmentClick="@(async() =>await CopyToClipboardAsync(_convertedText))"
+                      Label="Result"
+                      ReadOnly="true"
+                      Variant="Variant.Outlined"
+                      Lines="5" />
+    </MudItem>
+    <MudItem xs="12" Class="d-flex align-center justify-center">
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ExecuteConverter">Convert</MudButton>
+    </MudItem>
+</MudGrid>
+
+
+@code {
+    private string _title = RouteConstant.Base64Converter.GetPathTitle();
+    private string _textValue = string.Empty;
+    private string _convertedText = string.Empty;
+
+    private Base64ConverterType _converterSelected = Base64ConverterType.TextToBase64;
+    public Base64ConverterType ConvertedSelected
+    {
+        get
+        {
+            return _converterSelected;
+        }
+        set
+        {
+            CleanText();
+            _converterSelected = value;
+        }
+    }
+
+    private void TextToBase64()
+    {
+        _convertedText = _service.TextToBase64(_textValue);
+    }
+
+    private void Base64ToText()
+    {
+        try
+        {
+            _convertedText = _service.Base64ToText(_textValue);
+        }
+        catch (FormatException)
+        {
+            var parameters = new DialogParameters<ErrorDialog>();
+            parameters.Add(x => x.TextContent, "The inputted text is not a valid base64 text.");
+            _dialogService.Show<ErrorDialog>("Invalid Text", parameters);
+        }
+    }
+
+    private void ExecuteConverter()
+    {
+        if (ConvertedSelected == Base64ConverterType.TextToBase64)
+        {
+            TextToBase64();
+        }
+        else
+        {
+            Base64ToText();
+        }
+    }
+
+    private void CleanText()
+    {
+        _textValue = string.Empty;
+        _convertedText = string.Empty;
+    }
+
+    private async Task CopyToClipboardAsync(string text)
+    {
+        await _clipBoardService.CopyToClipboardAsync(text);
+        _snackbar.Add("Copied to Clipboard.", Severity.Success);
+    }
+}

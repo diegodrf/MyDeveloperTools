@@ -1,0 +1,41 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager _navigationManager
+
+<PageTitle>@_title</PageTitle>
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudButton Variant="Variant.Text" OnClick="@(() => _navigationManager.NavigateTo("/"))" Class="ml-3" Color="Color.Transparent">
+            <MudText Typo="Typo.h5" Style="@($"color: {Colors.Grey.Lighten5}")">@_title</MudText>
+            </MudButton>
+    </MudAppBar>
+    
+    <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+        <MudNavMenu Class="mt-7">
+            <NavMenu />
+        </MudNavMenu>
+    </MudDrawer>
+    
+    <MudMainContent Class="mt-16">
+        <MudContainer MaxWidth="MaxWidth.Medium">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+
+</MudLayout>
+
+@code {
+    bool _drawerOpen = true;
+    string _title = "My Developer Tools";
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+}
