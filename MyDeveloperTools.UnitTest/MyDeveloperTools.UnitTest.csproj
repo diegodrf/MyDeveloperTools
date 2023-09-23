@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyDeveloperTools.App\MyDeveloperTools.App.csproj" />
     <ProjectReference Include="..\MyDeveloperTools.Core\MyDeveloperTools.Core.csproj" />
     <ProjectReference Include="..\MyDeveloperTools.ServerApp\MyDeveloperTools.ServerApp.csproj" />
   </ItemGroup>
