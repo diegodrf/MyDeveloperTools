@@ -1,11 +1,6 @@
-﻿using MyDeveloperTools.App.Constants;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MyDeveloperTools.ServerApp.Constants;
 
-namespace MyDeveloperTools.UnitTest.MyDeveloperTools.App.Test.Constants.Test
+namespace MyDeveloperTools.UnitTest.MyDeveloperTools.ServerApp.Test.Constants.Test
 {
     public class RouteConstantsTest
     {
