@@ -1,6 +1,0 @@
-﻿@using MyDeveloperTools.App.Constants;
-
-@foreach(var route in RouteConstant.GetAllRoutes().Order())
-{
-    <MudNavLink Href="@route.GetRelativePath()" Match="NavLinkMatch.All">@route.GetPathTitle()</MudNavLink>
-}
