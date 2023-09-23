@@ -1,50 +1,50 @@
-name: github pages
+# name: github pages
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
 
-jobs:
-  build-teste-and-deploy:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        dotnet-version: [ '7.0.x' ]
-    steps:
-      # Checkout the code
-      - uses: actions/checkout@v3
+# jobs:
+#   build-teste-and-deploy:
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         dotnet-version: [ '7.0.x' ]
+#     steps:
+#       # Checkout the code
+#       - uses: actions/checkout@v3
 
-      # Install .NET Core SDK
-      - name: Setup .NET Core ${{ matrix.dotnet-version }}
-        uses: actions/setup-dotnet@v3.2.0
-        with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+#       # Install .NET Core SDK
+#       - name: Setup .NET Core ${{ matrix.dotnet-version }}
+#         uses: actions/setup-dotnet@v3.2.0
+#         with:
+#           dotnet-version: ${{ matrix.dotnet-version }}
 
-      # Install dotnet wasm buildtools workload
-      - name: Install .NET WASM Build Tools
-        run: dotnet workload install wasm-tools
+#       # Install dotnet wasm buildtools workload
+#       - name: Install .NET WASM Build Tools
+#         run: dotnet workload install wasm-tools
       
-      - name: Install dependencies
-        run: dotnet restore
+#       - name: Install dependencies
+#         run: dotnet restore
       
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
+#       - name: Build
+#         run: dotnet build --configuration Release --no-restore
       
-      - name: Test
-        run: dotnet test --no-restore --verbosity quiet
+#       - name: Test
+#         run: dotnet test --no-restore --verbosity quiet
       
-      # Publishes Blazor project to the release-folder
-      - name: Publish .NET Core Project
-        run: dotnet publish MyDeveloperTools.App/MyDeveloperTools.App.csproj -c:Release -p:GHPages=true -o dist/Web --nologo
+#       # Publishes Blazor project to the release-folder
+#       - name: Publish .NET Core Project
+#         run: dotnet publish MyDeveloperTools.App/MyDeveloperTools.App.csproj -c:Release -p:GHPages=true -o dist/Web --nologo
 
-      - name: Commit wwwroot to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.4.3
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: dist/Web/wwwroot
+#       - name: Commit wwwroot to GitHub Pages
+#         uses: JamesIves/github-pages-deploy-action@v4.4.3
+#         with:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           BRANCH: gh-pages
+#           FOLDER: dist/Web/wwwroot
       
