@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDeveloperTools.UnitTest",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDeveloperTools.Core", "MyDeveloperTools.Core\MyDeveloperTools.Core.csproj", "{AC860FCC-C3ED-466F-B5F2-1A2C94F6F517}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDeveloperTools.ServerApp", "MyDeveloperTools.ServerApp\MyDeveloperTools.ServerApp.csproj", "{23947A02-4779-4284-AE3C-BB516E3C14F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyDeveloperTools.ServerApp", "MyDeveloperTools.ServerApp\MyDeveloperTools.ServerApp.csproj", "{23947A02-4779-4284-AE3C-BB516E3C14F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{00433BD8-5532-412B-9E45-262D653E3BB9}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

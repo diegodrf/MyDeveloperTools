@@ -2,8 +2,8 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+# EXPOSE 80 EXPOSE IS NOT SUPPORTED BY HEROKU
+# EXPOSE 443 EXPOSE IS NOT SUPPORTED BY HEROKU
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
@@ -20,4 +20,5 @@ RUN dotnet publish "MyDeveloperTools.ServerApp.csproj" -c Release -o /app/publis
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "MyDeveloperTools.ServerApp.dll"]
+# ENTRYPOINT ["dotnet", "MyDeveloperTools.ServerApp.dll"]
+CMD ASPNETCORE_URLS="http://*:$PORT" dotnet MyDeveloperTools.ServerApp.dll
